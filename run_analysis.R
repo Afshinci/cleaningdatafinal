@@ -1,6 +1,6 @@
 library(stringr)
 library(dplyr)
-# setwd("C:/Users/spieczyn/Desktop/R/JH") 
+
 if(!dir.exists("./UCI HAR Dataset")){
     dlmethod <- "curl"
     if(substr(Sys.getenv("OS"), 1, 7) == "Windows"){
@@ -41,7 +41,6 @@ sdmean$Activity <- str_replace_all(sdmean$Activity, c("1" = "Walking", "2" = "Wa
                                                       "5" = "Standing", "6" = "Laying"))
 write.csv(sdmean, file = "sdmean.csv")
 
-## part 5 - summarising the data frame from previous part
 datasummarised <- sdmean %>% group_by(Participant, Activity) %>% summarise_all(funs(mean))
 write.csv(datasummarised, file = "datasummarised.csv")
 
