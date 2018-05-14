@@ -60,4 +60,4 @@ labels <- labels[,2]
 labels <- as.character(labels)
 names(data) <- c("Participant", "Activity", labels) 
 ```
-At first, file features.txt is read into data frame labels. T
+At first, file features.txt is read into data frame "labels". It contains the names of all the variables of xTest and xTrain.
