@@ -60,4 +60,46 @@ labels <- labels[,2]
 labels <- as.character(labels)
 names(data) <- c("Participant", "Activity", labels) 
 ```
-At first, file features.txt is read into data frame "labels". It contains the names of all the variables of xTest and xTrain.
+At first, file features.txt is read into data frame "labels". It contains the names of all the variables of xTest and xTrain. The data frame has two columns, first being the index, second, the variable names. Therefore, the second column was extracted (line 29), and its components changet to charactrers (line 30). The last step was performed in order to avoid problems when searching for specific variable names or changing them.
+Next, the names of the columns in "data" were changed (line 31), putting "Participant" and "Activity" before the names if measurements from the exoeriments.
+
+Next, the scrip introduces variable "a", which is an index of all the variable names containing words "std" (standard deviation) "mean" (line 33)
+```R
+a <- grep(".std|mean.", names(data)) ## index of all columns containing "std" or "mean"
+```
+Then, a columns found in "a" were extracted from "data", as well as "Participant" and "Activity", to create a new data frame, named "sdmean" (line 34)
+```R
+sdmean <- data[, c(1, 2, a)]
+```
+The new data frame is rearranged, so that the measurements for the first participant are shown first (from 1 to 6), followed by the second, etc. (line 36)
+```R
+sdmean <- sdmean %>% arrange(Participant, Activity) 
+```
+The next part of the code renames the column names (lines 37-38)
+```R
+names(sdmean) <- sub("\\()", "", names(sdmean)) 
+names(sdmean) <- gsub("([A-Z][a-z]+)\\1", "\\1", names(sdmean))
+```
+The variable names had some unnecessary characters, as well as repeated words. Firstly, the unnecessary brackets "()" were removed (line 37), then any repeated words (line 38). Some variables also included  a dash before axis name, these were left unchanged to keep the names readable.
+
+The next step was changing the factors of variable "Activity" (lines 39-40)
+```R
+sdmean$Activity <- str_replace_all(sdmean$Activity, c("1" = "Walking", "2" = "Walking Upstairs", 
+                                                      "3" = "Walking downstairs", "4" = "Sitting",
+                                                      "5" = "Standing", "6" = "Laying"))
+```
+Numbers 1 to 6 were replaced by descriptive names.
+Finally, the data was saved to file sdmean.csv (line 42)
+```R
+write.csv(sdmean, file = "sdmean.csv")
+```
+
+In the last step of the project, the data in "sdmean" was summarised (line 44)
+```R
+datasummarised <- sdmean %>% group_by(Participant, Activity) %>% summarise_all(funs(mean))
+```
+Each participant performed each activity a few times, so a mean of each variable was completed for each activity for each participant.
+The data frame it produced, called "datasummarised" was then saved into a file datasummarised.csv (line 45)
+```R
+write.csv(datasummarised, file = "datasummarised.csv")
+```
