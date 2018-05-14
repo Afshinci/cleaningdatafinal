@@ -39,7 +39,7 @@ subjectTest <- read.table("./test/subject_test.txt") ## subjects that performed 
 test <- cbind(yTest, xTest) 
 test <- cbind(subjectTest, test) ## full test df 
 ```
-At first 3 dataframes are read. They are yTest(containing the activity labels), xTest (the test set) and subjestTest(subjects who performed the activities). THey are all .txt files, read using read.table function. These three data frames are part of the same data set, containing different variables (activity, measurements and subjects, respectively). They are then compined using rbind (lines 18-19) into one data frame, the first column being participants, second being activity, followed by the rest of variables.
+At first 3 dataframes are read. They are yTest(containing the activity labels), xTest (the test set) and subjestTest(subjects who performed the activities). THey are all .txt files, read using read.table function. These three data frames are part of the same data set, containing different variables (activity, measurements and subjects, respectively). They are then combined horizontally using rbind (lines 18-19) into one data frame, the first column being participants, second being activity, followed by the rest of variables.
 
 The same actions ore repeated for the training data (lines 21-25)
 ```R
@@ -49,4 +49,15 @@ subjectTrain <- read.table("./train/subject_train.txt")
 train <- cbind(yTrain, xTrain)
 train <- cbind(subjectTrain, train) ## full training df
 ```
-Next, the two data frames are combined to create data"data"
+Next, the two data frames are combined vertically using rbind to create "data" (line 26)
+```R
+data <- rbind(test, train) ## all data, training and test
+```
+The next portion of the script deals with obtaining and changing the variable names of "data" (lines 28-31)
+```R
+labels <- read.table("./features.txt")
+labels <- labels[,2]
+labels <- as.character(labels)
+names(data) <- c("Participant", "Activity", labels) 
+```
+At first, file features.txt is read into data frame labels. T
