@@ -26,7 +26,7 @@ First, checking if the folder with it is present in the w.d. (assuming its name 
 If not, the function downloads it. The download method is set to "curl" (line 5), which is the method used on Mac and Linux operating systems. Next, the code checks if the OS is a Windows, in which case the download method is changed to "wininet" (lines  6-8). 
 Then, the URL for the data is put in, to feed into the next function which downloads the data (lines 9-10), naming it "UCI.zip". Other arguments of this function are the download method (dlmethod), as well as mode = "wb", which is the mode for downloading .zip files. Finally the file containing the data is unpacked into the working directory (line 11).
 
-Next, the unzipped folder is set as the new working directory
+Next, the unzipped folder is set as the new working directory (line 13)
 ```R
 setwd("./UCI HAR Dataset")
 ```
