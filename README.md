@@ -4,6 +4,9 @@ This file explains the script  for the final project of Getting and Cleaning Dat
  
 The purpose of this script is to combine, trim and clean the data from the University of California Irvine Human Activity Recognition Using Smartphones Data Set, as described in the instructions of the Getting and cleaning data course project by John Hopkins University on Coursera. 
 
+For information on study design, as well as data itself and the variables, please read the codebook available here:
+!#%$#$^%$#^#$^!!!!!
+
 
 The script starts by opening packages stringr and dplyr, whose functions will be used later (lines 1-2):
 ```R 
