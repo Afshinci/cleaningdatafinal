@@ -1,5 +1,5 @@
-library(stringr)
 library(dplyr)
+library(stringr)
 
 if(!dir.exists("./UCI HAR Dataset")){
     dlmethod <- "curl"
@@ -8,13 +8,13 @@ if(!dir.exists("./UCI HAR Dataset")){
     }
     url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
     download.file(url, destfile = "UCI.zip", method = dlmethod, mode = "wb")
-unzip(zipfile = "UCI.zip")
+    unzip(zipfile = "UCI.zip")
 }
 setwd("./UCI HAR Dataset")
 
 yTest <- read.table("./test/y_test.txt") ## activity label
 xTest <- read.table("./test/X_test.txt") ## test set
-subjectTest <- read.table("./test/subject_test.txt") ## subects that performed tests
+subjectTest <- read.table("./test/subject_test.txt") ## subjects that performed tests
 test <- cbind(yTest, xTest) 
 test <- cbind(subjectTest, test) ## full test df 
 
@@ -34,7 +34,7 @@ a <- grep(".std|mean.", names(data)) ## index of all columns containing "std" or
 sdmean <- data[, c(1, 2, a)] ## only variables containing stdev and mean, as well as 
                             ##participant and activity
 sdmean <- sdmean %>% arrange(Participant, Activity) 
-names(sdmean) <- sub("\\()", "", names(sdmean)) 
+names(sdmean) <- gsub("\\()", "", names(sdmean)) 
 names(sdmean) <- gsub("([A-Z][a-z]+)\\1", "\\1", names(sdmean))
 sdmean$Activity <- str_replace_all(sdmean$Activity, c("1" = "Walking", "2" = "Walking Upstairs", 
                                                       "3" = "Walking downstairs", "4" = "Sitting",
