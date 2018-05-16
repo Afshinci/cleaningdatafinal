@@ -39,7 +39,7 @@ names(sdmean) <- gsub("([A-Z][a-z]+)\\1", "\\1", names(sdmean))
 sdmean$Activity <- str_replace_all(sdmean$Activity, c("1" = "Walking", "2" = "Walking Upstairs", 
                                                       "3" = "Walking downstairs", "4" = "Sitting",
                                                       "5" = "Standing", "6" = "Laying"))
-write.csv(sdmean, file = "sdmean.csv")
+write.table(sdmean, file = "sdmean.txt", row.names = FALSE)
 
 datasummarised <- sdmean %>% group_by(Participant, Activity) %>% summarise_all(funs(mean))
-write.csv(datasummarised, file = "datasummarised.csv")
+write.table(datasummarised, file = "datasummarised.txt", row.names = FALSE)
