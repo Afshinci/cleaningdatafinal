@@ -94,9 +94,9 @@ sdmean$Activity <- str_replace_all(sdmean$Activity, c("1" = "Walking", "2" = "Wa
 ```
 Numbers 1 to 6 were replaced by descriptive names they were used for. str_replace_all is a function found in stringr package.
 
-Finally, the data was saved to file sdmean.csv (line 42)
+Finally, the data was saved to file sdmean.txt (line 42)
 ```R
-write.csv(sdmean, file = "sdmean.csv")
+write.table(sdmean, file = "sdmean.txt", row.names = FALSE)
 ```
 
 In the last step of the project, the data in "sdmean" was summarised (line 44)
@@ -104,7 +104,7 @@ In the last step of the project, the data in "sdmean" was summarised (line 44)
 datasummarised <- sdmean %>% group_by(Participant, Activity) %>% summarise_all(funs(mean))
 ```
 Each participant performed each activity a few times, so a mean value of each variable was completed for each activity for each participant.
-The data frame it produced, called "datasummarised" was then saved into a file datasummarised.csv (line 45)
+The data frame it produced, called "datasummarised" was then saved into a file datasummarised.txt (line 45)
 ```R
-write.csv(datasummarised, file = "datasummarised.csv")
+write.table(datasummarised, file = "datasummarised.txt", row.names = FALSE)
 ```
