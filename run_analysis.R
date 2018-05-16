@@ -43,4 +43,3 @@ write.csv(sdmean, file = "sdmean.csv")
 
 datasummarised <- sdmean %>% group_by(Participant, Activity) %>% summarise_all(funs(mean))
 write.csv(datasummarised, file = "datasummarised.csv")
-
